@@ -1,0 +1,25 @@
+.buttons {
+    background-color: indigo;
+    border-radius: 10px;
+    color: white;
+    width: 200px;
+    height: 30px;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: lighter;
+}
+
+.buttons:hover {
+    background-color: plum;
+}
+
+.question {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+}
+
