@@ -1,4 +1,4 @@
-.buttons {
+.buttons, .choice {
     background-color: indigo;
     border-radius: 10px;
     color: white;
@@ -9,19 +9,42 @@
     font-weight: lighter;
 }
 
+#content {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
 .buttons:hover {
+    background-color: lightskyblue;
+}
+.choice:hover {
     background-color: plum;
 }
 
-.question {
+.choices {
+    margin: 50px;
+    justify-content: space-evenly;}
+
+#question-title {
     font-weight: bold;
-    font-size: 40px;
+    font-size: 28px;
 }
 
-main {
-    display: flex;
-    justify-content: center;
+#questions {
+    flex-basis: 60%;
 }
+
+#feedback-container {
+    color: grey;
+    font-size: 28px;
+    border-top: 3px solid grey;
+    margin: 20px auto 0 auto;
+    width: 60%;
+    
+}
+
 
 .hide {
     display: none;
