@@ -12,17 +12,25 @@
         <div class="scores">
             <p>View high scores</p>
         </div>
-        <div class="timer">
-            <p>Time:</p>
+        <div class="time">
+            <p>Time: <span id="timer">60</span></p>
         </div>
     </header>
     <main>
-        <div>
-            <h2>Display question here</h2>
+        <div id="start-page">
+            <div>
+            <h2>Coding Quiz Challenge</h2>
+            <p>Try to answer the following code-relatated questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+            </div>
+            <div class="content">
+                <button class="buttons" id="start-button">Start Quiz</button>
+            </div>
         </div>
-        <div class="content">
-            <button class="buttons">Example</button>
+        <div class="hide" id="questions">
+            <h3 id="question-title"></h3>
+            <h4 id="question-text"></h4>
         </div>
+        <!-- Questions div here apply class=hide, remove "hide" when Start button is clicked -->
     </main>
     <script src="assets/js/script.js"></script>
 </body>
