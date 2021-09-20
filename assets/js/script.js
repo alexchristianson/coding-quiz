@@ -9,6 +9,21 @@ var questions = [
      title: "The condition in an if / else statement is enclosed within ____.",
      choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
      answer: "parentheses"
+    },
+    {
+     title: "Arrays in JavaScript can be used to store ______",
+     choices: ["numbers", "other arrays", "booleans", "all of the above"],
+     answer: "all of the above"
+    },
+    {
+     title: "String values must be enclosed within _____ when being assigned to variables.",
+     choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+     answer: "quotes"
+    },
+    {
+     title: "Finding and fixing errors or mistakes in your code is called ______.",
+     choices: ["looping", "debugging", "sequencing", "decomposing"],
+     answer: "debugging"
     }
    ]
 // create global variables that point to different html elements
@@ -17,6 +32,7 @@ var startScreen = document.querySelector("#start-page");
 var timerDisplay = document.querySelector("#timer");
 var timerState;
 var initialTime = 60;
+var score = 0;
 var questionContainer = document.querySelector("#questions");
 var questionIndex = 0;
 var feedback = document.querySelector("#answer-feedback");
@@ -52,23 +68,45 @@ function askQuestion () {
 function checkAnswer () {
     if (this.value === questions[questionIndex].answer) {
         feedback.textContent = "Correct!"
+        setTimeout(function(){
+            feedback.textContent ="";
+            if (questionIndex === questions.length || timerDisplay === 0) {
+                endGame();
+                
+            }
+            else {
+            askQuestion();
+            }
+        },3000);
+        score++;
     }
     else {
         feedback.textContent = "Wrong!"
+        setTimeout(function(){
+            feedback.textContent ="";
+            if (questionIndex === questions.length || timerDisplay === 0) {
+                endGame();
+                
+            }
+            else {
+            askQuestion();
+            }
+        },1000);
         initialTime = initialTime - 10;
         timerDisplay.textContent = initialTime;
     }
 
     questionIndex++;
-    if (questionIndex === questions.length) {
-        // quiz end function here (clearInterval on timerState)
-    }
-    else {
-    askQuestion();
-    }
+
 };
 
 // quiz end function to stop when questions run out or timer runs out (clearInterval on timer) and display endscreen with score
+function endGame() {
+    clearInterval(timerState);
+    timerDisplay.textContent = 0;
+    feedback.textContent = "Contratulations! You got " + score + " out of " + questions.length + " correct!";
+    feedback.setAttribute("class", "congrats")
+};
 
 // save score and initials function into localStorage as object
 
