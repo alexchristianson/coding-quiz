@@ -27,15 +27,23 @@ var questions = [
     }
    ]
 // create global variables that point to different html elements
-var startButton = document.querySelector("#start-button");
-var startScreen = document.querySelector("#start-page");
-var timerDisplay = document.querySelector("#timer");
 var timerState;
 var initialTime = 60;
 var score = 0;
-var questionContainer = document.querySelector("#questions");
 var questionIndex = 0;
+var allScores = [];
+var startButton = document.querySelector("#start-button");
+var highScores = document.querySelector("#score-button");
+var startScreen = document.querySelector("#start-page");
+var timerDisplay = document.querySelector("#timer");
+var questionContainer = document.querySelector("#questions");
 var feedback = document.querySelector("#answer-feedback");
+var questionTitle = document.querySelector("#question-title");
+var questionText = document.querySelector("#question-text");
+var scoreDisplay = document.querySelector("high-scores");
+var recordName = document.querySelector("recorded-name");
+var recordScore = document.querySelector("recorded-score");
+
 // start function to start timer, hide start screen, function to grab questions and answers array and display
 function quizStart () {
     startScreen.setAttribute("class", "hide");
@@ -51,8 +59,7 @@ askQuestion();
 // function to check if selected answer is correct or incorrect and add time penalty if incorrect
 function askQuestion () {
     var displayedQuestion = questions[questionIndex];
-    var questionTitle = document.querySelector("#question-title");
-    var questionText = document.querySelector("#question-text");
+    
     questionTitle.textContent = displayedQuestion.title;
     questionText.innerHTML = "";
     displayedQuestion.choices.forEach(function(choice) {
@@ -77,7 +84,7 @@ function checkAnswer () {
             else {
             askQuestion();
             }
-        },3000);
+        },1000);
         score++;
     }
     else {
@@ -104,12 +111,80 @@ function checkAnswer () {
 function endGame() {
     clearInterval(timerState);
     timerDisplay.textContent = 0;
-    feedback.textContent = "Contratulations! You got " + score + " out of " + questions.length + " correct!";
-    feedback.setAttribute("class", "congrats")
+    questionTitle.textContent = "Congratulations! You got " + score + " out of " + questions.length + " correct!";
+    questionText.setAttribute("class", "hide")
+
+ // save score and initials function into localStorage as object
+
+    // prompt user to enter initials
+    var enterInitials = document.createElement("initialsPrompt");
+    enterInitials.setAttribute("id", "enter-initials");
+    enterInitials.textContent = "Enter your initials: ";
+
+    feedback.appendChild(enterInitials);
+
+    // make input box for initials
+    var createInput = document.createElement("input");
+    createInput.setAttribute("type", "text");
+    createInput.setAttribute("id", "initials");
+    createInput.textContent = "";
+
+    feedback.appendChild(createInput);
+
+    // make submit button
+    var createSubmit = document.createElement("button");
+    createSubmit.setAttribute("type", "submit");
+    createSubmit.setAttribute("class", "buttons");
+    createSubmit.textContent = "Submit";
+
+    feedback.appendChild(createSubmit);
+
+    // function to capture initials and local storage for initials and score
+    createSubmit.onclick = function () {
+        var initials = createInput.value;
+
+        if (initials === "") {
+
+            alert("Please enter your intitials!");
+
+        } else {
+            var finalScore = {
+                initials: initials,
+                score: score
+            }
+
+            var allScores = localStorage.getItem("allScores");
+            allScores = JSON.parse(allScores);
+            allScores.push(finalScore);
+            var newScore = JSON.stringify(allScores);
+            localStorage.setItem("allScores", newScore); 
+        }
+    }
 };
 
-// save score and initials function into localStorage as object
-
 // get high score and initials when "view high scores" is clicked
+function viewScores() {
+    var allScores = localStorage.getItem("allScores");
+    allScores = JSON.parse(allScores);
+
+    for (var i = 0; i < localStorage.length; i++){
+        if (allScores.length < 0) {
+            alert("No previous scores recorded!")
+        }
+        else {
+            startScreen.setAttribute("class", "hide");
+            questions.setAttribute("class", "hide");
+            highScores.removeAttribute("class");
+            
+            var displayedScore = allScores[i];
+
+            displayedScore
+        }
+        // do something with localStorage.getItem(localStorage.key(i));
+    }
+}
+
+
+highScores.onclick = viewScores;
 
 startButton.onclick = quizStart;
