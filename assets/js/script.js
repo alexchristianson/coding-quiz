@@ -1,4 +1,4 @@
-// create array for questions and answers
+// array for questions and answers
 var questions = [
     {
      title: "Commonly used data types DO NOT include:",
@@ -26,7 +26,8 @@ var questions = [
      answer: "debugging"
     }
    ]
-// create global variables that point to different html elements
+
+// global variables
 var timerState;
 var initialTime = 60;
 var score = 0;
@@ -51,6 +52,9 @@ function quizStart () {
     timerState = setInterval(function() {
         initialTime--
         timerDisplay.textContent = initialTime;
+        if (initialTime < 1) {
+            endGame();
+        }
     }, 1000) 
 
 askQuestion();
@@ -72,6 +76,7 @@ function askQuestion () {
     })
 };
 
+// check if answer is correct or incorrect
 function checkAnswer () {
     if (this.value === questions[questionIndex].answer) {
         feedback.textContent = "Correct!"
@@ -91,7 +96,7 @@ function checkAnswer () {
         feedback.textContent = "Wrong!"
         setTimeout(function(){
             feedback.textContent ="";
-            if (questionIndex === questions.length || timerDisplay === 0) {
+            if (questionIndex === questions.length || timerState === 0) {
                 endGame();
                 
             }
@@ -107,14 +112,14 @@ function checkAnswer () {
 
 };
 
-// quiz end function to stop when questions run out or timer runs out (clearInterval on timer) and display endscreen with score
+// quiz end function to stop when questions run out or timer runs out and display endscreen with score
 function endGame() {
     clearInterval(timerState);
     timerDisplay.textContent = 0;
     questionTitle.textContent = "Congratulations! You got " + score + " out of " + questions.length + " correct!";
     questionText.setAttribute("class", "hide")
 
- // save score and initials function into localStorage as object
+ 
 
     // prompt user to enter initials
     var enterInitials = document.createElement("initialsPrompt");
@@ -153,6 +158,7 @@ function endGame() {
                 score: score
             }
 
+            // save score and initials function into localStorage as object
             var allScores = localStorage.getItem("allScores");
             allScores = JSON.parse(allScores);
             allScores.push(finalScore);
@@ -180,12 +186,9 @@ function viewScores() {
         eachNewScore.innerHTML = "Initials: " + allScores[i].initials + " Score: " + allScores[i].score;
         console.log(eachNewScore);
         
-       
         scoreDisplay.appendChild(eachNewScore); 
     }
-     
 };
-
 
 highScores.onclick = viewScores;
 
