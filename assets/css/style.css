@@ -2,10 +2,7 @@ body {
     background-color: rgb(236, 234, 212);
 }
 
-.time {
-    font-size: 24px;
-}
-
+/* buttons styling */
 .buttons, .choice {
     background-color: indigo;
     border-radius: 10px;
@@ -29,15 +26,21 @@ body {
     background-color: plum;
 }
 
+.choices {
+    margin: 50px;
+    justify-content: space-evenly;}
+
+/* timer styling */
+.time {
+    font-size: 24px;
+}
+
+/* content and question styling */
 #content {
     text-align: center;
     display: flex;
     justify-content: center;
 }
-
-.choices {
-    margin: 50px;
-    justify-content: space-evenly;}
 
 #question-title {
     font-weight: bold;
