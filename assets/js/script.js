@@ -151,7 +151,7 @@ function endGame() {
         if (initials === "") {
 
             alert("Please enter your intitials!");
-
+            return;
         } else {
             var finalScore = {
                 initials: initials,
@@ -159,11 +159,12 @@ function endGame() {
             }
 
             // save score and initials function into localStorage as object
-            var allScores = localStorage.getItem("allScores");
-            allScores = JSON.parse(allScores);
+            var allScores = JSON.parse(localStorage.getItem("allScores")) || [];
             allScores.push(finalScore);
             var newScore = JSON.stringify(allScores);
             localStorage.setItem("allScores", newScore); 
+
+            location.reload();
         }
     }
 };
@@ -177,7 +178,7 @@ function viewScores() {
     startScreen.setAttribute("class", "hide");
     questionContainer.setAttribute("class", "hide");
     
-    if (allScores.length < 0) {
+    if (allScores === null) {
         alert("No previous scores recorded!")
     }
 
