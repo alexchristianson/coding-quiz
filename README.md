@@ -13,6 +13,7 @@ Users are presented with a start screen that describes the timed quiz and the pe
 ## Credits
 * https://www.w3schools.com/js/js_object_display.asp
 * https://www.w3schools.com/jsref/met_node_appendchild.asp
+* https://www.w3schools.com/jsref/met_loc_reload.asp
 
 ## License
 MIT License
